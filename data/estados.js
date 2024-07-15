@@ -1,0 +1,31 @@
+const Estados = {
+        "Acre": "Acre",
+        "Alagoas": "Alagoas",
+        "Amapá": "Amapá",
+        "Amazonas": "Amazonas",
+        "Bahia": "Bahia",
+        "Ceará": "Ceará",
+        "Distrito Federal": "Distrito Federal",
+        "Espírito Santo": "Espírito Santo",
+        "Goiás": "Goiás",
+        "Maranhão": "Maranhão",
+        "Mato Grosso": "Mato Grosso",
+        "Mato Grosso do Sul": "Mato Grosso do Sul",
+        "Minas Gerais": "Minas Gerais",
+        "Pará": "Pará",
+        "Paraíba": "Paraíba",
+        "Paraná": "Paraná",
+        "Pernambuco": "Pernambuco",
+        "Piauí": "Piauí",
+        "Rio de Janeiro": "Rio de Janeiro",
+        "Rio Grande do Norte": "Rio Grande do Norte",
+        "Rio Grande do Sul": "Rio Grande do Sul",
+        "Rondônia": "Rondônia",
+        "Roraima": "Roraima",
+        "Santa Catarina": "Santa Catarina",
+        "São Paulo": "São Paulo",
+        "Sergipe": "Sergipe",
+        "Tocantins": "Tocantins"
+}
+
+export default Estados
