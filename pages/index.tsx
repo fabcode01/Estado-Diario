@@ -13,8 +13,8 @@ export function getStaticProps(){
 
 
       return {
-        // Pegar um estado aleatorio todo dia
-        revalidate: 86400,
+        // Pegar um estado aleatorio todo dia 
+        revalidate: 300,
         props: {
           estadoEscolhido: estadoAleatorio
         }
