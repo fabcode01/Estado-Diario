@@ -18,8 +18,10 @@ export function getStaticProps(){
           estadoEscolhido: estadoAleatorio
         },
         
-        revalidate: 300
+        revalidate: 30
       }
+
+
 
 }
 
@@ -27,37 +29,56 @@ export function getStaticProps(){
 
 export default function Game(props: any) {
 
-    const[nomeDoEstado, setNomeDoEstado] = useState<EstadoModel>(new EstadoModel(props.estadoEscolhido, false))
+  // Controle de sessão max: 1h 
+    setInterval(()=>{
+      window.location.href = '/'
+  },3600000 )
 
-    const[inputResposta, setInputResposta] = useState<string>()
-
-
-    function respostaFornecida(e: any){
-      e.preventDefault()
-
-      if(inputResposta == nomeDoEstado.NomeDoEstadoGET){
-          setNomeDoEstado(nomeDoEstado.RespostaCerta())
-      }
-    }
-
-
-
-  return (
-    <>
-      <p>{nomeDoEstado.NomeDoEstadoGET}</p>
+  
+  // Forcar recarregamento para manter dados atualizados
+    function forcarReinizializacao(){
       
 
-      <form className='bg-gray-300' onSubmit={respostaFornecida}>
+        if (!sessionStorage.getItem('reloadedTwice')) {
+          // Inicializa o contador de recarregamento
+          let reloadCount:any = sessionStorage.getItem('reloadCount') || 0;
+          reloadCount++;
+          sessionStorage.setItem('reloadCount', reloadCount);
 
-          <input type="text" className='border-2' onChange={e => setInputResposta(e.target.value)}/>
+          // Se recarregar menos de duas vezes, recarrega a página
+          if (reloadCount < 4) {
+              window.location.reload();
+          } else {
+              // Marca que a página já foi recarregada duas vezes
+              sessionStorage.setItem('reloadedTwice', 'true');
+          }
+      }
+    }
+    useEffect(()=>{
+      forcarReinizializacao()
+    },[])
 
-          <input type="submit" value="responder" />
-      </form>
 
 
-      <div
-      className='bg-green'
-      >{nomeDoEstado.acertou ? <p>Acertou</p> : ''}</div>
+   
+
+    const[nomeDoEstado, setNomeDoEstado] = useState<EstadoModel>(new EstadoModel(props.estadoEscolhido, false))
+
+
+  
+    
+
+  return (
+    <> 
+      
+      <p>{nomeDoEstado.NomeDoEstadoGET}</p>
+
+      
+
+      
+
+
+    
 
       
     </>
