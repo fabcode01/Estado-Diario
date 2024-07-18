@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Estados from '../data/estados'
 import EstadoModel from '@/modelos/EstadoModel'
+import Cabecalho from '@/componentes/Cabecalho'
 
 
 export function getStaticProps(){
@@ -59,8 +60,16 @@ export default function Game(props: any) {
     },[])
 
 
-
-   
+    
+    const[temaAtual, setTemaAtual] = useState('')
+    
+      function mudarTema(){
+          if(temaAtual == ''){
+            setTemaAtual('dark')
+          }else if(temaAtual == 'dark'){
+            setTemaAtual('')
+          }
+      }
 
     const[nomeDoEstado, setNomeDoEstado] = useState<EstadoModel>(new EstadoModel(props.estadoEscolhido, false))
 
@@ -69,18 +78,21 @@ export default function Game(props: any) {
     
 
   return (
-    <> 
-      
-      <p>{nomeDoEstado.NomeDoEstadoGET}</p>
+    <div className={temaAtual}>
 
-      
+        <div className='
+        bg-slate-100 h-screen
+        dark:bg-slate-800
+        
+          '>
+          <Cabecalho temaAtual={temaAtual} mudarTema={mudarTema}/>
+        
+        
+        
+        
+        
+        </div>
 
-      
-
-
-    
-
-      
-    </>
+    </div>
   );
 }
