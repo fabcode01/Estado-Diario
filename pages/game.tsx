@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import Estados from '../data/estados'
 import EstadoModel from '@/modelos/EstadoModel'
 import Cabecalho from '@/componentes/Cabecalho'
+import Palpites from '@/componentes/Palpites'
+import Input from '@/componentes/Input'
 
 
 export function getStaticProps(){
@@ -16,6 +18,7 @@ export function getStaticProps(){
       return {
         // Pegar um estado aleatorio todo dia 
         props: {
+          todosEstados: estadosEmArray,
           estadoEscolhido: estadoAleatorio
         },
         
@@ -85,9 +88,13 @@ export default function Game(props: any) {
         dark:bg-slate-800
         
           '>
+
           <Cabecalho temaAtual={temaAtual} mudarTema={mudarTema}/>
-        
-        
+          
+          <Palpites/>
+
+          <Input todosEstados={props.todosEstados} />
+          
         
         
         
