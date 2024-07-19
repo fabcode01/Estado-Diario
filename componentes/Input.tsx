@@ -2,37 +2,32 @@ import { enviarPalpiteIcon } from "@/icons/icons"
 import { useEffect, useState } from "react"
 
 interface InputProps{
-    palpite: () => void
+    // palpite: () => void
     todosEstados: any
 }
 
 export default function Input(props: InputProps){
     const[estadoInput, setEstadoInput] = useState('')
 
-   const[todosEstados, setTodosEstados] = useState<[]>(props.todosEstados)
+   const[todosEstados, setTodosEstados] = useState(props.todosEstados)
 
    const[sugestao, setSugestao] = useState([])
     
 
-    function ResponderPalpite(e: any){
+    function ResponderPalpite(e: React.FormEvent){
         e.preventDefault()
     }
 
   
 
 
-    function sugestoes(){
-
-        const filtradas:[] = []
-
-        todosEstados.filter((estado: any)=>{
-            
-            if(estado.toLowerCase().includes(estadoInput.toLowerCase())){
-               filtradas.push(estado)
-            }
-           setSugestao(filtradas)
-        })
-    }
+    function sugestoes() {
+        
+        const filtradas = todosEstados.filter((estado: any) =>
+          estado.toLowerCase().includes(estadoInput.toLowerCase())
+        );
+        setSugestao(filtradas);
+      }
 
 
     useEffect(()=>{
