@@ -1,7 +1,9 @@
+interface PalpiteProps {
+    listaDePalpites: string[]
+}
 
 
-
-export default function(){
+export default function(props: PalpiteProps){
 
 
     return (
@@ -10,7 +12,9 @@ export default function(){
         
         ">
             <div>
-                <p>Roraima</p>
+                {props.listaDePalpites.map((palpite)=>(
+                    <p>{palpite}</p>
+                ))}
                
               
             </div>
