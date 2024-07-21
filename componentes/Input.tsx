@@ -1,8 +1,9 @@
 import { enviarPalpiteIcon } from "@/icons/icons";
 import { useEffect, useState } from "react";
+import Estados from "@/data/estados";
 
 interface InputProps {
-  palpite: (palpite: string) => void;
+  palpite: (palpite: Object[]) => void;
   todosEstados: any;
 }
 
@@ -27,7 +28,16 @@ export default function Input(props: InputProps) {
   function DarPalpite(e: React.FormEvent) {
     e.preventDefault();
 
-    props.palpite(estadoInput);
+    const palpite:Object[] = []
+
+    Estados.filter((estado)=>{
+      if(estado.nome == estadoInput){
+        palpite.push(estado)
+      }
+    })
+
+
+    props.palpite(palpite);
 
     // tirar item das sugestoes
     const novoArrayEstado = todosEstados.filter((item: string) => item !== estadoInput);

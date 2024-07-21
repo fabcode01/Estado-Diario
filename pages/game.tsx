@@ -49,7 +49,7 @@ export default function Game(props: any) {
 
   const [temaAtual, setTemaAtual] = useState("");
 
-  const [ListaDePalpites, setListaDePalpites] = useState<Array <String>>([]);
+  const [ListaDePalpites, setListaDePalpites] = useState<Array <Object>>([]);
 
   // Controle de sessão max: 1h
   setInterval(() => {
@@ -86,14 +86,26 @@ export default function Game(props: any) {
   }
 
 
-  function palpite(palpite: string) {
-    const palpites:string[] = [];
-    if (nomeDoEstado.NomeDoEstadoGET == palpite) {
-      console.log("acertou");
-    } else {
-      palpites.push(palpite);
-      setListaDePalpites((prevPalpites) => [...prevPalpites, ...palpites]);
+  function palpite(palpite: any[]) {
+
+    const palpites:any[] = []
+
+    if(palpite[0].nome == nomeDoEstado.NomeDoEstadoGET){
+
+      console.log('Acertou')
+
+    }else{
+
+      palpites.push({nome: palpite[0].nome, habitantes: palpite[0].habitantes, temperatura: palpite[0].mediaTemperatura})
+
+
+      setListaDePalpites(prevPalpites => [...prevPalpites, ...palpites])
     }
+
+    console.log(palpites)
+    
+    
+  
   }
 
   return (
@@ -117,7 +129,7 @@ export default function Game(props: any) {
           mudarTema={mudarTema}
         />
 
-        <Palpites listaDePalpites={ListaDePalpites} />
+        <Palpites habitantes={nomeDoEstado.habitantes} mediaTemperatura={nomeDoEstado.temperaturaMedia} listaDePalpites={ListaDePalpites} />
 
         <Input
           palpite={palpite}

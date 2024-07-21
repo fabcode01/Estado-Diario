@@ -1,10 +1,12 @@
 interface PalpiteProps {
-    listaDePalpites: string[]
+    listaDePalpites: any[]
+    habitantes: number
+    mediaTemperatura: number
 }
 
 
 export default function(props: PalpiteProps){
-
+    
 
     return (
         <div className="
@@ -13,7 +15,12 @@ export default function(props: PalpiteProps){
         ">
             <div>
                 {props.listaDePalpites.map((palpite, i)=>(
-                    <p key={i}>{palpite}</p>
+                    <ul key={i} className="flex gap-3">
+                        <li>{palpite.nome}</li>
+                        <li>{props.habitantes > palpite.habitantes ? 'Menos' : 'Mais'}</li>
+                        <li>{palpite.temperatura}°C</li>
+                    </ul>
+
                 ))}
                
               
