@@ -26,6 +26,7 @@ export default function Input(props: InputProps) {
 
   function DarPalpite(e: React.FormEvent) {
     e.preventDefault();
+
     props.palpite(estadoInput);
 
     // tirar item das sugestoes
@@ -59,8 +60,9 @@ export default function Input(props: InputProps) {
         >
           <div className="overflow-auto h-full">
             {sugestao &&
-              sugestao.map((s) => (
+              sugestao.map((s, i) => (
                 <p
+                  key={i}
                   className="
                             cursor-pointer
                             hover:bg-slate-200

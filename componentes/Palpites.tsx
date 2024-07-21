@@ -12,8 +12,8 @@ export default function(props: PalpiteProps){
         
         ">
             <div>
-                {props.listaDePalpites.map((palpite)=>(
-                    <p>{palpite}</p>
+                {props.listaDePalpites.map((palpite, i)=>(
+                    <p key={i}>{palpite}</p>
                 ))}
                
               

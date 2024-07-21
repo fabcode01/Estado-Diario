@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ObjectHTMLAttributes, useEffect, useState } from "react";
 import Estados from "../data/estados";
 import EstadoModel from "@/modelos/EstadoModel";
 import Cabecalho from "@/componentes/Cabecalho";
@@ -8,17 +8,34 @@ import Head from "next/head";
 
 export function getStaticProps() {
   // Transforma o objeto em array
-  const estadosEmArray = Object.values(Estados);
+
+  const TodosEstados: any[] = [];
+  const ListaDeNomesEstado: string[] = [] 
+
+
+  Estados.map((estado: any) => {
+    TodosEstados.push(estado);
+    ListaDeNomesEstado.push(estado.nome)
+  });
+
 
   // Escolhe um estado aleatorio
-  const estadoAleatorio =
-    estadosEmArray[Math.floor(Math.random() * estadosEmArray.length)];
+  const estadoAleatorio = TodosEstados[Math.floor(Math.random() * 27)];
+
+  
+
+ 
+    
+
 
   return {
     // Pegar um estado aleatorio todo dia
     props: {
-      todosEstados: estadosEmArray,
-      estadoEscolhido: estadoAleatorio,
+      todosEstados: ListaDeNomesEstado,
+
+      estadoEscolhido: estadoAleatorio.nome,
+      habitantes: estadoAleatorio.habitantes,
+      tempMedia: estadoAleatorio.mediaTemperatura
     },
 
     revalidate: 30,
@@ -26,16 +43,13 @@ export function getStaticProps() {
 }
 
 export default function Game(props: any) {
-  
   const [nomeDoEstado, setNomeDoEstado] = useState<EstadoModel>(
-    new EstadoModel(props.estadoEscolhido, false)
+    new EstadoModel(props.estadoEscolhido, props.habitantes, props.tempMedia)
   );
-  
+
   const [temaAtual, setTemaAtual] = useState("");
 
-  const[ListaDePalpites, setListaDePalpites] = useState([])
-
-
+  const [ListaDePalpites, setListaDePalpites] = useState<Array <String>>([]);
 
   // Controle de sessão max: 1h
   setInterval(() => {
@@ -63,7 +77,6 @@ export default function Game(props: any) {
     forcarReinizializacao();
   }, []);
 
-
   function mudarTema() {
     if (temaAtual == "") {
       setTemaAtual("dark");
@@ -72,18 +85,15 @@ export default function Game(props: any) {
     }
   }
 
-  
- 
-  function palpite(palpite: string){
-      const palpites = []
-      if(nomeDoEstado.NomeDoEstadoGET == palpite){
-          console.log('acertou')
-      }else{
-          palpites.push(palpite)
-          setListaDePalpites(prevPalpites => [...prevPalpites, ...palpites])
-      }
-      
 
+  function palpite(palpite: string) {
+    const palpites:string[] = [];
+    if (nomeDoEstado.NomeDoEstadoGET == palpite) {
+      console.log("acertou");
+    } else {
+      palpites.push(palpite);
+      setListaDePalpites((prevPalpites) => [...prevPalpites, ...palpites]);
+    }
   }
 
   return (
@@ -93,6 +103,8 @@ export default function Game(props: any) {
       </Head>
 
       <p>{nomeDoEstado.NomeDoEstadoGET}</p>
+      <p>{nomeDoEstado.habitantes}</p>
+      <p>{nomeDoEstado.temperaturaMedia}</p>
       <div
         className="
         bg-slate-100 h-screen
@@ -105,9 +117,12 @@ export default function Game(props: any) {
           mudarTema={mudarTema}
         />
 
-        <Palpites listaDePalpites={ListaDePalpites}/>
+        <Palpites listaDePalpites={ListaDePalpites} />
 
-        <Input palpite={palpite} todosEstados={props.todosEstados} />
+        <Input
+          palpite={palpite}
+          todosEstados={props.todosEstados}
+        />
       </div>
     </div>
   );

@@ -1,8 +1,11 @@
 
+import Estados from "@/data/estados";
 import Link from "next/link";
 
 
 export default function Home() {
+    
+
     return (
         <div>
            
