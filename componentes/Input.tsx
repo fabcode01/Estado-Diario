@@ -14,6 +14,8 @@ export default function Input(props: InputProps) {
 
   const [sugestao, setSugestao] = useState([]);
 
+  const[caixaDeSugestoes, setCaixaDeSugestoes] = useState<any>(null)
+
   function sugestoes() {
     const filtradas = todosEstados.filter((estado: any) =>
       estado.toLowerCase().includes(estadoInput.toLowerCase())
@@ -48,11 +50,14 @@ export default function Input(props: InputProps) {
 
   return (
     <div className="fixed bottom-5 w-full">
-      <div className="flex flex-col items-center w-3/4 m-auto">
-        <div
+      
+      <div className="relative flex flex-col items-center w-3/4 m-auto">
+
+        {caixaDeSugestoes && (
+          <div
           className="
-            relative
-            top-5
+            absolute
+            bottom-10
             overflow-hidden
             bg-white
             h-36 w-full
@@ -60,7 +65,7 @@ export default function Input(props: InputProps) {
              rounded-[14px]
             border-black
             p-2
-            pb-5
+            pb-6
             font-light
             dark:bg-slate-600
             dark:text-slate-300
@@ -88,6 +93,10 @@ export default function Input(props: InputProps) {
           </div>
         </div>
 
+        )}
+
+        
+
         <form
           onSubmit={DarPalpite}
           className="
@@ -114,10 +123,11 @@ export default function Input(props: InputProps) {
             type="text"
             value={estadoInput}
             onChange={(e) => setEstadoInput(e.target.value)}
+            onFocus={() => setCaixaDeSugestoes(1)}
             className="outline-none p-3 rounded-[14px] bg-transparent placeholder:text-slate-300"
             placeholder="Escolha um estado"
           />
-          <button className="w-8 mr-2">{enviarPalpiteIcon}</button>
+          <button onClick={()=>setCaixaDeSugestoes(null)} className="w-8 mr-2">{enviarPalpiteIcon}</button>
         </form>
       </div>
     </div>

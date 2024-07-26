@@ -10,12 +10,17 @@ interface PalpiteProps {
 
 
 export default function(props: PalpiteProps){
+
+    // auto scrolar pro ultimo palpite
     const ultimoPalpite = useRef<HTMLDivElement>(null)
 
     useEffect(()=>{
         ultimoPalpite.current?.scrollIntoView()
         
     },[props.listaDePalpites])
+
+
+
     return (
         <div className="
         mt-12 
