@@ -51,6 +51,7 @@ export default function Game(props: any) {
 
   const [ListaDePalpites, setListaDePalpites] = useState<Array <Object>>([]);
 
+
   // Controle de sessão max: 1h
   setInterval(() => {
     window.location.href = "/";
@@ -97,12 +98,10 @@ export default function Game(props: any) {
     }else{
 
       palpites.push({nome: palpite[0].nome, habitantes: palpite[0].habitantes, temperatura: palpite[0].mediaTemperatura})
-
-
       setListaDePalpites(prevPalpites => [...prevPalpites, ...palpites])
     }
 
-    console.log(palpites)
+    
     
     
   
@@ -129,7 +128,7 @@ export default function Game(props: any) {
           mudarTema={mudarTema}
         />
 
-        <Palpites habitantes={nomeDoEstado.habitantes} mediaTemperatura={nomeDoEstado.temperaturaMedia} listaDePalpites={ListaDePalpites} />
+        <Palpites habitantes={nomeDoEstado.habitantes} mediaTemperatura={nomeDoEstado.temperaturaMedia} listaDePalpites={ListaDePalpites}/>
 
         <Input
           palpite={palpite}

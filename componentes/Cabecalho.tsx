@@ -17,6 +17,7 @@ export default function Cabecalho(props: CabecalhoProps){
             items-center
             justify-around
             font-bold
+            
             `}>
 
                 <h1 className='text-xl'>Estado Diário</h1>
