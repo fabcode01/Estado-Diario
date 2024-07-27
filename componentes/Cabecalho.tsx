@@ -27,7 +27,7 @@ export default function Cabecalho(props: CabecalhoProps){
                     <li className='w-7 cursor-pointer'>{infoIcon}</li>
 
 
-                    <li className='w-7 cursor-pointer' onClick={props.mudarTema}>{props.temaAtual === '' ? noturnoIcon : onNoturnoIcon}</li>
+                    <li className='w-7 cursor-pointer' onClick={props.mudarTema}>{props.temaAtual === 'white' ? noturnoIcon : onNoturnoIcon}</li>
 
                     
                     

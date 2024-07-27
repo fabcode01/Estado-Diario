@@ -48,10 +48,14 @@ export default function Game(props: any) {
     new EstadoModel(props.estadoEscolhido, props.habitantes, props.tempMedia)
   );
 
-  const [temaAtual, setTemaAtual] = useState("");
-
+  
   const [ListaDePalpites, setListaDePalpites] = useState<Array <Object>>([]);
+  
 
+
+  const [temaAtual, setTemaAtual] = useState<any>('');
+
+    
 
   // Controle de sessão max: 1h
   setInterval(() => {
@@ -77,13 +81,21 @@ export default function Game(props: any) {
   }
   useEffect(() => {
     forcarReinizializacao();
+
+    setTemaAtual(localStorage.getItem('tema'))
   }, []);
 
+
   function mudarTema() {
-    if (temaAtual == "") {
-      setTemaAtual("dark");
-    } else if (temaAtual == "dark") {
-      setTemaAtual("");
+    if(localStorage.getItem('tema') == 'white'){
+
+        localStorage.setItem('tema','dark')
+        setTemaAtual(localStorage.getItem('tema'))
+
+    }else if(localStorage.getItem('tema') == 'dark'){
+      
+      localStorage.setItem('tema','white')
+      setTemaAtual(localStorage.getItem('tema'))
     }
   }
 
@@ -139,7 +151,9 @@ export default function Game(props: any) {
             temaAtual={temaAtual}
             mudarTema={mudarTema}
           />
+
           <Palpites habitantes={nomeDoEstado.habitantes} mediaTemperatura={nomeDoEstado.temperaturaMedia} listaDePalpites={ListaDePalpites}/>
+
           <Input
             palpite={palpite}
             todosEstados={props.todosEstados}
