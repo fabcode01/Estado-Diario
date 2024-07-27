@@ -50,5 +50,10 @@ html, body{
     #svg-map .circle { fill:#66ccff }
     #svg-map a:hover .circle { fill:#003399 !important; cursor:pointer }
 
-
+.bg-brazil{
+  background-image: url('../componentes/imgs/brazil.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 

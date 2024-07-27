@@ -109,33 +109,42 @@ export default function Game(props: any) {
   }
 
   return (
-    <div className={temaAtual}>
-      <Head>
-        <title>Estado Díario</title>
-      </Head>
+    <div className={`${temaAtual}`}>
 
-      <p>{nomeDoEstado.NomeDoEstadoGET}</p>
-      <p>{nomeDoEstado.habitantes}</p>
-      <p>{nomeDoEstado.temperaturaMedia}</p>
+      <div className={`
+          flex justify-center
+          w-full
+          bg-slate-100 h-full 
+          dark:bg-slate-800`}>
 
-      <div
-        className="
-        bg-slate-100 h-screen
-        dark:bg-slate-800
-        
-          "
-      >
-        <Cabecalho
-          temaAtual={temaAtual}
-          mudarTema={mudarTema}
-        />
+        <Head>
+          <title>Estado Díario</title>
+        </Head>
 
-        <Palpites habitantes={nomeDoEstado.habitantes} mediaTemperatura={nomeDoEstado.temperaturaMedia} listaDePalpites={ListaDePalpites}/>
+        {/* <p>{nomeDoEstado.NomeDoEstadoGET}</p>
+        <p>{nomeDoEstado.habitantes}</p>
+        <p>{nomeDoEstado.temperaturaMedia}</p> */}
 
-        <Input
-          palpite={palpite}
-          todosEstados={props.todosEstados}
-        />
+        <div
+          className="
+          bg-slate-100 h-screen
+          dark:bg-slate-800
+          w-full
+          max-w-[580px]
+      
+      
+            "
+        >
+          <Cabecalho
+            temaAtual={temaAtual}
+            mudarTema={mudarTema}
+          />
+          <Palpites habitantes={nomeDoEstado.habitantes} mediaTemperatura={nomeDoEstado.temperaturaMedia} listaDePalpites={ListaDePalpites}/>
+          <Input
+            palpite={palpite}
+            todosEstados={props.todosEstados}
+          />
+        </div>
       </div>
     </div>
   );

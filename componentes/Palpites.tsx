@@ -1,6 +1,9 @@
 import { setaBaixo, setaCima } from "@/icons/icons"
 import { useEffect, useRef } from "react"
 
+import brazilImg from './imgs/brazil.png'
+
+
 interface PalpiteProps {
     listaDePalpites: any[]
     habitantes: number
@@ -22,12 +25,15 @@ export default function(props: PalpiteProps){
 
 
     return (
-        <div className="
+        <div className={`bg-brazil
         mt-12 
         h-[460px] overflow-auto p-2 scroll-auto
         shadow-inner
-        ">
-            <div id="teste">
+       
+        
+        
+        `}>
+            <div>
                
                 {props.listaDePalpites.map((palpite, i)=>(
                     <ul key={i} className="">

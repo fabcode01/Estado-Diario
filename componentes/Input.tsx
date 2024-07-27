@@ -49,7 +49,7 @@ export default function Input(props: InputProps) {
   }
 
   return (
-    <div className="fixed bottom-5 w-full">
+    <div className="flex justify-center fixed bottom-5 w-full max-w-[550px]">
       
       <div className="relative flex flex-col items-center w-3/4 m-auto">
 
