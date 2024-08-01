@@ -1,4 +1,4 @@
-import { ObjectHTMLAttributes, useEffect, useState } from "react";
+import { ObjectHTMLAttributes, useContext, useEffect, useState } from "react";
 import Estados from "../data/estados";
 import EstadoModel from "@/modelos/EstadoModel";
 import Cabecalho from "@/componentes/Cabecalho";
@@ -6,6 +6,7 @@ import Palpites from "@/componentes/Palpites";
 import Input from "@/componentes/Input";
 import Head from "next/head";
 import { redirect } from "next/navigation";
+import { TemaContext } from "@/context/TemaContext";
 
 export function getStaticProps() {
   // Transforma o objeto em array
@@ -50,12 +51,7 @@ export default function Game(props: any) {
 
   
   const [ListaDePalpites, setListaDePalpites] = useState<Array <Object>>([]);
-  
 
-
-  const [temaAtual, setTemaAtual] = useState<any>('');
-
-    
 
   // Controle de sessão max: 1h
   setInterval(() => {
@@ -82,22 +78,8 @@ export default function Game(props: any) {
   useEffect(() => {
     forcarReinizializacao();
 
-    setTemaAtual(localStorage.getItem('tema'))
   }, []);
 
-
-  function mudarTema() {
-    if(localStorage.getItem('tema') == 'white'){
-
-        localStorage.setItem('tema','dark')
-        setTemaAtual(localStorage.getItem('tema'))
-
-    }else if(localStorage.getItem('tema') == 'dark'){
-      
-      localStorage.setItem('tema','white')
-      setTemaAtual(localStorage.getItem('tema'))
-    }
-  }
 
 
   function palpite(palpite: any[]) {
@@ -120,8 +102,10 @@ export default function Game(props: any) {
   
   }
 
+  const{tema} = useContext(TemaContext)
+
   return (
-    <div className={`${temaAtual}`}>
+    <div className={tema}>
 
       <div className={`
           flex justify-center
@@ -148,8 +132,7 @@ export default function Game(props: any) {
             "
         >
           <Cabecalho
-            temaAtual={temaAtual}
-            mudarTema={mudarTema}
+           
           />
 
           <Palpites habitantes={nomeDoEstado.habitantes} mediaTemperatura={nomeDoEstado.temperaturaMedia} listaDePalpites={ListaDePalpites}/>

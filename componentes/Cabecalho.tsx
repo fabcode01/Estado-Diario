@@ -1,11 +1,13 @@
+import { useContext } from 'react'
 import { climaIcon, habitantesIcon, infoIcon, noturnoIcon, onNoturnoIcon, pontuacaoIcon } from '../icons/icons'
+import { TemaContext } from '@/context/TemaContext'
 
-interface CabecalhoProps{
-    temaAtual: string
-    mudarTema?: () => void
-}
 
-export default function Cabecalho(props: CabecalhoProps){
+
+export default function Cabecalho(){
+   const{tema, alterarTema} = useContext(TemaContext)
+
+
     return (
         <div className='dark:text-white'>
                 <div className={`
@@ -27,7 +29,9 @@ export default function Cabecalho(props: CabecalhoProps){
                     <li className='w-7 cursor-pointer'>{infoIcon}</li>
 
 
-                    <li className='w-7 cursor-pointer' onClick={props.mudarTema}>{props.temaAtual === 'white' ? noturnoIcon : onNoturnoIcon}</li>
+                    <li className='w-7 cursor-pointer' onClick={alterarTema}>{
+                    tema === 'light' ? noturnoIcon : onNoturnoIcon
+                    }</li>
 
                     
                     
