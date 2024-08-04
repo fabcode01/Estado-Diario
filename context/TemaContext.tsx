@@ -1,23 +1,32 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
-type Tema = 'dark' | 'light'
+type Tema = 'dark' | 'light' 
+
 
 interface TemaContextProps {
-    tema: Tema
+    tema: Tema 
     alterarTema: () => void
     
 }
+
+
+
 
 export const TemaContext = createContext<TemaContextProps>({
     tema: 'dark', alterarTema: ()=>{}
 })
 
 export function TemaProvider(props: any){
-    const[tema, setTema] = useState<Tema>('dark')
+
+    const[tema, setTema] = useState<Tema>('light')
+    
 
     function alterarTema(){
         setTema(tema === 'dark' ? 'light' : 'dark')
     }
+
+    
+    
 
     return (
         <TemaContext.Provider value={{tema, alterarTema}}>

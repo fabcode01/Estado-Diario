@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { climaIcon, habitantesIcon, infoIcon, noturnoIcon, onNoturnoIcon, pontuacaoIcon } from '../icons/icons'
 import { TemaContext } from '@/context/TemaContext'
+import { MudarTema } from './MudarTema'
 
 
 
@@ -28,10 +29,8 @@ export default function Cabecalho(){
                     <li className='w-7 cursor-pointer'>{pontuacaoIcon}</li>
                     <li className='w-7 cursor-pointer'>{infoIcon}</li>
 
-
-                    <li className='w-7 cursor-pointer' onClick={alterarTema}>{
-                    tema === 'light' ? noturnoIcon : onNoturnoIcon
-                    }</li>
+                    <MudarTema/>
+                   
 
                     
                     

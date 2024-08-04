@@ -1,26 +1,19 @@
+import { MudarTema } from "@/componentes/MudarTema";
+import { TemaContext } from "@/context/TemaContext";
 import { setaBaixo, setaCima } from "@/icons/icons";
 import Head from "next/head";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 
 
 export default function Tutorial(){
-    const[tema, setTema] = useState<any>('')
-    
-    useEffect(()=>{
-        if(localStorage.getItem('tema')){
-          setTema(localStorage.getItem('tema'))
-        } else{
-          localStorage.setItem('tema','white')
-          setTema(localStorage.getItem('tema'))
-        }
-    
-    
-      },[])
+    const{tema} = useContext(TemaContext)
+
 
     return (
         <div className={tema}>
+            
             <div className="
             h-screen
             flex
@@ -35,9 +28,11 @@ export default function Tutorial(){
               dark:bg-slate-800
               dark:text-white
             ">
+
                 <Head>
                     <title>Início</title>
                 </Head>
+                <MudarTema/>
                 <div className="flex flex-col items-center gap-y-6 max-w-[660px]">
                     <h1 className='text-xl'>Estado Diário</h1>
                     <div className="flex flex-col gap-10">

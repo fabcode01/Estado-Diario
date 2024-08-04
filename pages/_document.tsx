@@ -1,15 +1,13 @@
+import { TemaContext } from "@/context/TemaContext";
 import { Html, Head, Main, NextScript } from "next/document";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 
 export default function Document() {
   
 
- 
-
- 
 
   return (
-    <Html className="" lang="pt-br">
+    <Html lang="pt-br">
       <Head />
       <body>
         <Main />

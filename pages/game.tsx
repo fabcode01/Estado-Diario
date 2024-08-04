@@ -5,7 +5,6 @@ import Cabecalho from "@/componentes/Cabecalho";
 import Palpites from "@/componentes/Palpites";
 import Input from "@/componentes/Input";
 import Head from "next/head";
-import { redirect } from "next/navigation";
 import { TemaContext } from "@/context/TemaContext";
 
 export function getStaticProps() {
@@ -102,7 +101,7 @@ export default function Game(props: any) {
   
   }
 
-  const{tema} = useContext(TemaContext)
+  const{ tema } = useContext(TemaContext)
 
   return (
     <div className={tema}>
