@@ -8,9 +8,16 @@ export function MudarTema(){
 
     return (
         <div>
-            <li className='w-7 cursor-pointer list-none' onClick={alterarTema}>{
-                tema === 'light' ? noturnoIcon : onNoturnoIcon
-                }</li>
+            {tema === 'light' ? (
+                <li className='w-7 cursor-pointer list-none' onClick={alterarTema}>
+                    {onNoturnoIcon}
+                </li>
+            ):(
+                <li className='w-7 cursor-pointer list-none' onClick={alterarTema}>
+                    {noturnoIcon}
+                </li>
+            )}
+            
         </div>
     )
 }

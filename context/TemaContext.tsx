@@ -1,10 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 
-type Tema = 'dark' | 'light' 
-
 
 interface TemaContextProps {
-    tema: Tema 
+    tema: string 
     alterarTema: () => void
     
 }
@@ -18,14 +16,26 @@ export const TemaContext = createContext<TemaContextProps>({
 
 export function TemaProvider(props: any){
 
-    const[tema, setTema] = useState<Tema>('light')
+    const[tema, setTema] = useState('light')
     
 
     function alterarTema(){
-        setTema(tema === 'dark' ? 'light' : 'dark')
+        const novoTema = tema === 'dark' ? 'light' : 'dark'
+        setTema(novoTema)
+        localStorage.setItem('tema', novoTema)
     }
 
-    
+    useEffect(()=>{
+        if(!localStorage.getItem('tema')){
+            localStorage.setItem('tema', tema)
+        }
+
+        const temaSalvo = localStorage.getItem('tema')
+
+        temaSalvo && setTema(temaSalvo)
+        
+
+    },[])
     
 
     return (

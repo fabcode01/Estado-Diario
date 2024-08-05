@@ -6,28 +6,21 @@ import Palpites from "@/componentes/Palpites";
 import Input from "@/componentes/Input";
 import Head from "next/head";
 import { TemaContext } from "@/context/TemaContext";
+import Router from "next/router";
 
 export function getStaticProps() {
   // Transforma o objeto em array
 
   const TodosEstados: any[] = [];
-  const ListaDeNomesEstado: string[] = [] 
-
+  const ListaDeNomesEstado: string[] = [];
 
   Estados.map((estado: any) => {
     TodosEstados.push(estado);
-    ListaDeNomesEstado.push(estado.nome)
+    ListaDeNomesEstado.push(estado.nome);
   });
-
 
   // Escolhe um estado aleatorio
   const estadoAleatorio = TodosEstados[Math.floor(Math.random() * 27)];
-
-  
-
- 
-    
-
 
   return {
     // Pegar um estado aleatorio todo dia
@@ -36,7 +29,7 @@ export function getStaticProps() {
 
       estadoEscolhido: estadoAleatorio.nome,
       habitantes: estadoAleatorio.habitantes,
-      tempMedia: estadoAleatorio.mediaTemperatura
+      tempMedia: estadoAleatorio.mediaTemperatura,
     },
 
     revalidate: 86400,
@@ -48,9 +41,7 @@ export default function Game(props: any) {
     new EstadoModel(props.estadoEscolhido, props.habitantes, props.tempMedia)
   );
 
-  
-  const [ListaDePalpites, setListaDePalpites] = useState<Array <Object>>([]);
-
+  const [ListaDePalpites, setListaDePalpites] = useState<Array<Object>>([]);
 
   // Controle de sessão max: 1h
   setInterval(() => {
@@ -76,42 +67,34 @@ export default function Game(props: any) {
   }
   useEffect(() => {
     forcarReinizializacao();
-
   }, []);
 
-
-
   function palpite(palpite: any[]) {
+    const palpites: any[] = [];
 
-    const palpites:any[] = []
-
-    if(palpite[0].nome == nomeDoEstado.NomeDoEstadoGET){
-
-     window.location.href = '/acertou'
-
-    }else{
-
-      palpites.push({nome: palpite[0].nome, habitantes: palpite[0].habitantes, temperatura: palpite[0].mediaTemperatura})
-      setListaDePalpites(prevPalpites => [...prevPalpites, ...palpites])
+    if (palpite[0].nome == nomeDoEstado.NomeDoEstadoGET) {
+        Router.push('/acertou')
+    } else {
+      palpites.push({
+        nome: palpite[0].nome,
+        habitantes: palpite[0].habitantes,
+        temperatura: palpite[0].mediaTemperatura,
+      });
+      setListaDePalpites((prevPalpites) => [...prevPalpites, ...palpites]);
     }
-
-    
-    
-    
-  
   }
 
-  const{ tema } = useContext(TemaContext)
+  const { tema } = useContext(TemaContext);
 
   return (
     <div className={tema}>
-
-      <div className={`
+      <div
+        className={`
           flex justify-center
-          w-full
-          bg-slate-100 h-full 
-          dark:bg-slate-800`}>
-
+          overflow-hidden
+           bg-slate-100 
+           dark:bg-slate-800`}
+      >
         <Head>
           <title>Estado Díario</title>
         </Head>
@@ -122,19 +105,21 @@ export default function Game(props: any) {
 
         <div
           className="
-          bg-slate-100 h-screen
+          bg-slate-100 
           dark:bg-slate-800
-          w-full
+          w-full h-screen
           max-w-[580px]
-      
+          
       
             "
         >
-          <Cabecalho
-           
-          />
+          <Cabecalho />
 
-          <Palpites habitantes={nomeDoEstado.habitantes} mediaTemperatura={nomeDoEstado.temperaturaMedia} listaDePalpites={ListaDePalpites}/>
+          <Palpites
+            habitantes={nomeDoEstado.habitantes}
+            mediaTemperatura={nomeDoEstado.temperaturaMedia}
+            listaDePalpites={ListaDePalpites}
+          />
 
           <Input
             palpite={palpite}

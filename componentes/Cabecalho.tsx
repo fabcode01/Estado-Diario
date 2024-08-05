@@ -6,8 +6,7 @@ import { MudarTema } from './MudarTema'
 
 
 export default function Cabecalho(){
-   const{tema, alterarTema} = useContext(TemaContext)
-
+   
 
     return (
         <div className='dark:text-white'>

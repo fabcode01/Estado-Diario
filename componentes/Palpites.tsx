@@ -1,7 +1,6 @@
 import { setaBaixo, setaCima } from "@/icons/icons"
 import { useEffect, useRef } from "react"
 
-import brazilImg from './imgs/brazil.png'
 
 
 interface PalpiteProps {
@@ -25,7 +24,7 @@ export default function(props: PalpiteProps){
 
 
     return (
-        <div className={`bg-brazil
+        <div className={`
         mt-12 
         h-[460px] overflow-auto p-2 scroll-auto
         shadow-inner
