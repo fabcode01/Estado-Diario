@@ -28,15 +28,14 @@ export default function(props: PalpiteProps){
 
     function renderLista(){
         return (
-            <div className="h-[40%]">
+            <div>
                 <div className={`
-                    mt-12
                     
-                    w-full
-                    h-[40vh]
+                    mt-5
+                    h-[150px]
+                    border-2 border-red-400
                     min-h-[320px] overflow-auto p-2 scroll-auto
-                    
-                 
+                   
                 
                 
                 

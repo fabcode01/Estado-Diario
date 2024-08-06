@@ -127,7 +127,7 @@ export default function Game(props: any) {
         <div
           className={`
             flex justify-center
-            overflow-hidden
+            overflow-auto
              bg-slate-100
              dark:bg-slate-800`}
         >
@@ -154,6 +154,7 @@ export default function Game(props: any) {
               listaDePalpites={ListaDePalpites}
               respostaCerta={respostaCerta}
             />
+           
             <Input
               palpite={palpite}
               todosEstados={props.todosEstados}
