@@ -32,8 +32,7 @@ export default function(props: PalpiteProps){
                 <div className={`
                     
                     mt-5
-                    h-[150px]
-                    border-2 border-red-400
+                    h-[250px]
                     min-h-[320px] overflow-auto p-2 scroll-auto
                    
                 
