@@ -32,6 +32,7 @@ export function getStaticProps() {
       estadoEscolhido: estadoAleatorio.nome,
       habitantes: estadoAleatorio.habitantes,
       tempMedia: estadoAleatorio.mediaTemperatura,
+      acertou: false
     },
 
     revalidate: 86000,
@@ -40,20 +41,36 @@ export function getStaticProps() {
 
 export default function Game(props: any) {
 
+  
   const [nomeDoEstado, setNomeDoEstado] = useState<EstadoModel>(
     new EstadoModel(props.estadoEscolhido, props.habitantes, props.tempMedia)
   );
-
+  
   const [ListaDePalpites, setListaDePalpites] = useState<Array<Object>>([]);
-
+  
   const [desabilitarInput, setDesabilitarInput] = useState<boolean>(false)
-
+  
   const [respostaCerta, setRespostaCerta] = useState<string | null>(null)
 
+  useEffect(() => {
+    const lastUpdate = localStorage.getItem('lastUpdate');
+    const currentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+
+    if (lastUpdate !== currentDate) {
+      localStorage.setItem('lastUpdate', currentDate);
+      localStorage.removeItem('acertou');
+      localStorage.removeItem('palpites');
+    }
+  }, [props.estadoEscolhido]);
+
   // Controle de sessão max: 1h
-  setInterval(() => {
-    window.location.href = "/";
-  }, 3600000);
+  useEffect(()=>{
+    const interval = setInterval(() => {
+      window.location.href = "/";
+    }, 3600000);
+
+    return () => clearInterval(interval);
+  },[])
 
   // Forcar recarregamento para manter dados atualizados
   function forcarReinizializacao() {
@@ -73,24 +90,20 @@ export default function Game(props: any) {
     }
   }
 
-  
-  useEffect(() => {
-    forcarReinizializacao();
-  }, []);
 
- 
 
   function palpite(palpite: any[]) {
+
     const palpites: any[] = []
-    
-   
-    
 
     if (palpite[0].nome == nomeDoEstado.NomeDoEstadoGET) {
 
+
+        localStorage.setItem('acertou', 'true')
         nomeDoEstado.RespostaCerta()
         setRespostaCerta(nomeDoEstado.NomeDoEstadoGET)
         setDesabilitarInput(true)
+        localStorage.removeItem('palpites')
         
 
     } else {
@@ -109,15 +122,32 @@ export default function Game(props: any) {
   }
 
  useEffect(()=>{
-    if(localStorage.getItem('palpites')){
 
-      const palpitesSalvos = localStorage.getItem('palpites')
-      palpitesSalvos && setListaDePalpites(JSON.parse(palpitesSalvos))
-       
+    if(localStorage.getItem('acertou') === 'true'){
+
+        nomeDoEstado.RespostaCerta()
+        setRespostaCerta(nomeDoEstado.NomeDoEstadoGET)
+        setDesabilitarInput(true)
+
+      
+
     }else{
-      localStorage.setItem('palpites', `${ListaDePalpites}`)
+
+      if(localStorage.getItem('palpites')){
+  
+        const palpitesSalvos = localStorage.getItem('palpites')
+        palpitesSalvos && setListaDePalpites(JSON.parse(palpitesSalvos))
+         
+      }else{
+        localStorage.setItem('palpites', `${ListaDePalpites}`)
+      }
+
     }
+    
+    forcarReinizializacao()
  },[])
+
+
 
 
   const { tema } = useContext(TemaContext);
