@@ -131,7 +131,6 @@ export default function Game(props: any) {
   }
 
  useEffect(()=>{
-
     if(localStorage.getItem('acertou') === 'true'){
 
         nomeDoEstado.RespostaCerta()
