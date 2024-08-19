@@ -9,7 +9,7 @@ import { TemaContext } from "@/context/TemaContext";
 
 
 export async function getStaticProps() {
-
+  const BASE_URL = '/api/'
 
   // Transforma o objeto em array
 
@@ -31,7 +31,7 @@ export async function getStaticProps() {
   
   
   async function fetchEstado(){
-    const res = await fetch('http://localhost:3000/api/estadoProvider')
+    const res = await fetch(`${BASE_URL}/estadoProvider`)
     const json = await res.json()
 
     return json;
