@@ -55,6 +55,8 @@ export async function getStaticProps() {
       acertou: false
     },
 
+    revalidate: 86400
+
   };
 }
 
