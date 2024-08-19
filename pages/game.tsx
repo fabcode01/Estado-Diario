@@ -9,7 +9,7 @@ import { TemaContext } from "@/context/TemaContext";
 
 
 export async function getStaticProps() {
-  const BASE_URL = '/api/'
+  const BASE_URL = '/api'
 
   // Transforma o objeto em array
 
