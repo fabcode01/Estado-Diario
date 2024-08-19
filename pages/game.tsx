@@ -8,7 +8,7 @@ import Head from "next/head";
 import { TemaContext } from "@/context/TemaContext";
 
 
-export function getStaticProps() {
+export async function getStaticProps() {
 
 
   // Transforma o objeto em array
@@ -21,21 +21,40 @@ export function getStaticProps() {
     ListaDeNomesEstado.push(estado.nome);
   });
 
-  // Escolhe um estado aleatorio
-  const estadoAleatorio = TodosEstados[Math.floor(Math.random() * 27)];
+
+  const dataAtual = new Date();
+  const horarioBrasilia = new Date(
+    dataAtual.toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' })
+  );
+  
+  const diaBrasilia = horarioBrasilia.getDate();
+  
+  
+  async function fetchEstado(){
+    const res = await fetch('http://localhost:3000/api/estadoProvider')
+    const json = await res.json()
+
+    return json;
+    
+  }
+
+
+  const estado = await fetchEstado()
+
+
+
 
   return {
     // Pegar um estado aleatorio todo dia
     props: {
       todosEstados: ListaDeNomesEstado,
-
-      estadoEscolhido: estadoAleatorio.nome,
-      habitantes: estadoAleatorio.habitantes,
-      tempMedia: estadoAleatorio.mediaTemperatura,
+      estadoEscolhido: estado.nome,
+      habitates: estado.habitantes,
+      tempMedia: estado.mediaTemperatura,
+      dia: diaBrasilia,
       acertou: false
     },
 
-    revalidate: 86000,
   };
 }
 
@@ -54,23 +73,13 @@ export default function Game(props: any) {
 
   useEffect(() => {
     const lastUpdate = localStorage.getItem('lastUpdate');
-    const currentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
 
-    if (lastUpdate !== currentDate) {
-      localStorage.setItem('lastUpdate', currentDate);
+    if (lastUpdate != props.dia) {
+      localStorage.setItem('lastUpdate', props.dia);
       localStorage.removeItem('acertou');
       localStorage.removeItem('palpites');
     }
   }, [props.estadoEscolhido]);
-
-  // Controle de sessão max: 1h
-  useEffect(()=>{
-    const interval = setInterval(() => {
-      window.location.href = "/";
-    }, 3600000);
-
-    return () => clearInterval(interval);
-  },[])
 
   // Forcar recarregamento para manter dados atualizados
   function forcarReinizializacao() {
@@ -146,6 +155,9 @@ export default function Game(props: any) {
     
     forcarReinizializacao()
  },[])
+
+
+
 
 
 

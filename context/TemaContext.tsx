@@ -8,8 +8,6 @@ interface TemaContextProps {
 }
 
 
-
-
 export const TemaContext = createContext<TemaContextProps>({
     tema: 'dark', alterarTema: ()=>{}
 })
